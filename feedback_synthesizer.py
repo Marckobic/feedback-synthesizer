@@ -10,7 +10,8 @@ Output: <name>_report.xlsx (3 sheets: Dashboard, Backlog, Raw Data)
 
 Requires:
     pip install openai openpyxl
-    export OPENAI_API_KEY=sk-...
+    export OPENAI_API_KEY=sk-...   (for OpenAI)
+    export GROQ_API_KEY=gsk_...    (for Groq — free)
 """
 
 import sys
@@ -18,13 +19,26 @@ import os
 import json
 import csv
 from openai import OpenAI
+
+# ── PROVIDER CONFIG ────────────────────────────────────────────────────────────
+
+PROVIDERS = {
+    "groq": {
+        "base_url": "https://api.groq.com/openai/v1",
+        "model":    "llama-3.3-70b-versatile",
+        "env_key":  "GROQ_API_KEY",
+    },
+    "openai": {
+        "base_url": None,
+        "model":    "gpt-4o",
+        "env_key":  "OPENAI_API_KEY",
+    },
+}
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 # ── CONFIG ─────────────────────────────────────────────────────────────────────
-
-MODEL = "gpt-4o"
 
 COLORS = {
     "header_bg":  "1E1B4B",
@@ -132,8 +146,14 @@ Rules:
 - opportunity_score = frequency + severity + strategic impact combined"""
 
 
-def analyze_reviews(reviews, api_key):
-    client = OpenAI(api_key=api_key)
+def analyze_reviews(reviews, api_key, provider="groq"):
+    cfg = PROVIDERS.get(provider, PROVIDERS["groq"])
+    model = cfg["model"]
+
+    kwargs = {"api_key": api_key}
+    if cfg["base_url"]:
+        kwargs["base_url"] = cfg["base_url"]
+    client = OpenAI(**kwargs)
 
     reviews_json = json.dumps([
         {"id": r["id"], "source": r["source"], "rating": r["rating"], "text": r["text"]}
@@ -142,10 +162,11 @@ def analyze_reviews(reviews, api_key):
 
     prompt = USER_PROMPT.format(n=len(reviews), reviews_json=reviews_json)
 
-    print(f"🤖 Analyzing {len(reviews)} reviews with {MODEL}...")
+    print(f"🤖 Analyzing {len(reviews)} reviews with {model} ({provider})...")
 
+    # Groq supports response_format json_object via compatible endpoint
     response = client.chat.completions.create(
-        model=MODEL,
+        model=model,
         messages=[
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user",   "content": prompt},
@@ -364,22 +385,25 @@ def build_excel(clusters, summary, reviews, output_path):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python feedback_synthesizer.py reviews.csv")
-        print("       OPENAI_API_KEY must be set as environment variable")
+        print("Usage: python feedback_synthesizer.py reviews.csv [groq|openai]")
+        print("       GROQ_API_KEY or OPENAI_API_KEY must be set")
         sys.exit(1)
 
     csv_path = sys.argv[1]
-    api_key = os.environ.get("OPENAI_API_KEY")
+    provider = sys.argv[2] if len(sys.argv) > 2 else "groq"
+    cfg      = PROVIDERS.get(provider, PROVIDERS["groq"])
+    api_key  = os.environ.get(cfg["env_key"])
+
     if not api_key:
-        print("❌ OPENAI_API_KEY not set.")
-        print("   Run: export OPENAI_API_KEY=sk-...")
+        print(f"❌ {cfg['env_key']} not set.")
+        print(f"   Run: export {cfg['env_key']}=your-key")
         sys.exit(1)
 
     print(f"📂 Loading: {csv_path}")
     reviews = load_reviews(csv_path)
     print(f"   {len(reviews)} reviews loaded")
 
-    result   = analyze_reviews(reviews, api_key)
+    result   = analyze_reviews(reviews, api_key, provider)
     clusters = result["clusters"]
     summary  = result["summary"]
 

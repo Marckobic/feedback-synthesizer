@@ -54,12 +54,34 @@ with st.sidebar:
     st.markdown("## ⚙️ Configuration")
     st.divider()
 
-    api_key = st.text_input(
-        "OpenAI API Key",
-        type="password",
-        placeholder="sk-...",
-        help="Your key is used only for this session and never stored.",
+    provider = st.radio(
+        "AI Provider",
+        options=["groq", "openai"],
+        format_func=lambda x: "🟢 Groq (Free)" if x == "groq" else "🔵 OpenAI (GPT-4o)",
+        index=0,
+        help="Groq is free and fast. OpenAI requires a paid API key.",
     )
+
+    key_label    = "Groq API Key"    if provider == "groq"   else "OpenAI API Key"
+    key_placeholder = "gsk_..."      if provider == "groq"   else "sk-..."
+    key_help = (
+        "Free at console.groq.com — no credit card needed."
+        if provider == "groq"
+        else "Requires billing at platform.openai.com"
+    )
+
+    api_key = st.text_input(
+        key_label,
+        type="password",
+        placeholder=key_placeholder,
+        help=key_help,
+    )
+
+    if provider == "groq":
+        st.markdown(
+            "👉 Get free key at [console.groq.com](https://console.groq.com)",
+            unsafe_allow_html=True,
+        )
 
     st.divider()
     st.markdown("### 📋 CSV Format")
@@ -133,11 +155,12 @@ for r in reviews:
     r["rating"] = int(r["rating"])
     r["text"] = str(r["text"]).strip()
 
-with st.spinner(f"Analyzing {len(reviews)} reviews with GPT-4o…"):
+model_name = "llama-3.3-70b" if provider == "groq" else "GPT-4o"
+with st.spinner(f"Analyzing {len(reviews)} reviews with {model_name}…"):
     try:
-        result = analyze_reviews(reviews, api_key)
+        result = analyze_reviews(reviews, api_key, provider)
     except Exception as e:
-        st.error(f"OpenAI error: {e}")
+        st.error(f"API error: {e}")
         st.stop()
 
 clusters = result["clusters"]
