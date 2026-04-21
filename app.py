@@ -12,7 +12,35 @@ import pandas as pd
 import streamlit as st
 from openai import OpenAI
 
-from feedback_synthesizer import analyze_reviews, build_excel
+from feedback_synthesizer import build_excel, SYSTEM_PROMPT, USER_PROMPT
+
+
+def analyze_reviews(reviews, api_key, provider="groq"):
+    providers = {
+        "groq":   {"base_url": "https://api.groq.com/openai/v1", "model": "llama-3.3-70b-versatile"},
+        "openai": {"base_url": None,                              "model": "gpt-4o"},
+    }
+    cfg = providers.get(provider, providers["groq"])
+    kwargs = {"api_key": api_key}
+    if cfg["base_url"]:
+        kwargs["base_url"] = cfg["base_url"]
+    client = OpenAI(**kwargs)
+
+    reviews_json = json.dumps([
+        {"id": r["id"], "source": r["source"], "rating": r["rating"], "text": r["text"]}
+        for r in reviews
+    ], indent=2)
+
+    response = client.chat.completions.create(
+        model=cfg["model"],
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user",   "content": USER_PROMPT.format(n=len(reviews), reviews_json=reviews_json)},
+        ],
+        temperature=0.2,
+        response_format={"type": "json_object"},
+    )
+    return json.loads(response.choices[0].message.content)
 
 # ── PAGE CONFIG ────────────────────────────────────────────────────────────────
 
