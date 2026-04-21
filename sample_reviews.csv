@@ -1,0 +1,44 @@
+id,source,rating,text,date
+1,App Store,2,Setup took forever. Didn't understand what to input first — income before or after tax? No guidance.,2024-11-03
+2,G2,3,The onboarding wizard is confusing. I had to restart twice because I entered the wrong expense category.,2024-10-28
+3,Trustpilot,2,First launch: no explanation of what the app does. Threw me straight into a form. Uninstalled and reinstalled.,2024-11-10
+4,Support,1,I'm a freelancer. The income field only had monthly salary. Doesn't fit my situation at all.,2024-11-05
+5,App Store,3,Took me 20 minutes to get through setup. That's too long. After that it's fine.,2024-10-15
+6,G2,2,No progress indicator during onboarding. I had no idea how many more steps were left.,2024-11-01
+7,Trustpilot,3,Onboarding flow is okay but there are too many fields upfront. Would be better to start simple.,2024-10-20
+8,Support,2,The expense categories don't match how I think about money. Discretionary vs Fixed isn't intuitive.,2024-11-08
+9,App Store,1,Crashed during onboarding. Lost all my data. Had to start over.,2024-10-22
+10,G2,3,The initial setup needs a short video or tooltip tour. Just text labels isn't enough.,2024-11-12
+11,App Store,2,Entering expenses manually every time is exhausting. I stopped using it after a week.,2024-10-18
+12,G2,3,The manual entry is the main bottleneck. If it connected to my bank I'd use it daily.,2024-11-02
+13,Trustpilot,2,I have to re-enter my numbers every session. There's no persistence. Frustrating.,2024-11-06
+14,Support,1,Can't copy-paste from my bank statement. Have to type each number manually. This is 2024.,2024-10-25
+15,App Store,3,Manual entry is tedious but I get it — no bank sync. Would love a CSV import at least.,2024-11-09
+16,G2,2,I entered wrong numbers once and couldn't find where to edit them later. Had to redo everything.,2024-10-27
+17,Trustpilot,3,No recurring expense memory. I enter rent every single time. Please remember my fixed costs.,2024-11-11
+18,Support,2,Data doesn't save between sessions. I close the app and everything is gone. What's the point?,2024-10-19
+19,App Store,2,Would be 5 stars if it connected to Plaid. Manual entry kills the habit loop.,2024-11-04
+20,App Store,3,The projections look too optimistic. Assumes I'll hit my savings goal every month. I won't.,2024-10-16
+21,G2,2,I don't trust the AI recommendations. No explanation of how the numbers are calculated.,2024-11-07
+22,Trustpilot,3,The scenario engine is interesting but I wish I knew what assumptions it's making.,2024-10-24
+23,Support,2,It told me I'd save $8k by cutting dining by $200/month. That math doesn't add up.,2024-11-03
+24,App Store,4,Love the concept but projections feel like a black box. Show your work.,2024-10-29
+25,G2,3,The baseline scenario assumes best case. I need a pessimistic scenario option.,2024-11-10
+26,App Store,2,No bank sync is a dealbreaker for me. I use Copilot for this reason.,2024-10-17
+27,G2,3,Plaid integration would be a game changer. Right now it's too much manual work.,2024-11-05
+28,Trustpilot,2,Competitor apps connect to my bank. This one doesn't. Hard to recommend.,2024-10-26
+29,Support,3,When is bank sync coming? That's the one thing stopping me from going premium.,2024-11-09
+30,App Store,4,Great logic but needs bank connection. I'll wait for that feature before recommending to friends.,2024-10-31
+31,App Store,3,No weekly check-in reminder. I forget to use it. Needs a nudge system.,2024-10-20
+32,G2,4,I wish it sent me an alert when I'm about to exceed a spending category.,2024-11-01
+33,Trustpilot,3,No push notifications. Out of sight out of mind. I used it twice and forgot about it.,2024-10-28
+34,Support,3,Would love a monthly review email. Like a here's how your month went summary.,2024-11-10
+35,App Store,4,Good tool but I need reminders to actually use it consistently. Habit loop is missing.,2024-10-15
+36,App Store,2,Free tier only gives 2 scenarios. That's not enough to actually test anything.,2024-11-04
+37,G2,3,Paywall hits too early. I didn't see enough value before being asked to upgrade.,2024-10-22
+38,Trustpilot,2,$15/month is too expensive for a tool without bank sync. Doesn't justify the price.,2024-11-11
+39,Support,3,There should be a 14-day free trial of premium. I can't tell if it's worth it without trying.,2024-10-19
+40,App Store,4,Clean design. The dark mode looks great. Charts are easy to read.,2024-10-16
+41,G2,4,UI is polished but the scenario comparison screen is hard to parse with too many numbers.,2024-11-03
+42,Trustpilot,5,Best-looking finance app I've used. Very clean.,2024-10-27
+43,App Store,4,Love the interface. The goal progress bar is motivating.,2024-10-21
