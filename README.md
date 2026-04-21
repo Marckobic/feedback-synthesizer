@@ -4,7 +4,7 @@
 
 An AI agent that transforms unstructured customer reviews into a prioritized product opportunity backlog — reducing analysis time by 80%.
 
-**[🚀 Live Demo →](https://your-app.streamlit.app)**
+**[🚀 Live Demo →](https://feedback-synthesizergit-paqd5xqee53zstpuuvgzdc.streamlit.app)**
 
 ---
 
