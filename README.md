@@ -2,7 +2,9 @@
 
 > AI PM Portfolio Project · Built by Mark
 
-An AI agent that transforms unstructured customer reviews into a prioritized product opportunity backlog — reducing analysis time by 80%.
+An AI agent that transforms unstructured customer reviews into a prioritized product opportunity backlog. A batch of 50–100 reviews is processed in under 30 seconds.
+
+> Portfolio project: built and tested on public and sample review data, not yet used with a real client.
 
 **[🚀 Live Demo →](https://feedback-synthesizergit-paqd5xqee53zstpuuvgzdc.streamlit.app)**
 
@@ -14,6 +16,10 @@ An AI agent that transforms unstructured customer reviews into a prioritized pro
 2. Sends them to GPT-4o for semantic theme clustering
 3. Scores each cluster by severity, frequency, and strategic impact
 4. Outputs a 3-sheet Excel report ready for sprint planning
+
+## Test dataset: 500 App Store reviews (Spotify)
+
+![Rating distribution and top mentioned words in 500 Spotify App Store reviews](docs/reviews-overview.png)
 
 ## Output
 
